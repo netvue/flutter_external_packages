@@ -1,0 +1,59 @@
+name: wakelock
+description: >-2
+  Plugin that allows you to keep the device screen awake, i.e. prevent the screen from sleeping on
+  Android, iOS, macOS, Windows, and web.
+version: 0.6.2
+repository: https://github.com/creativecreatorormaybenot/wakelock/tree/main/wakelock
+
+environment:
+  sdk: '>=2.12.0'
+  flutter: '>=2.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  meta: ^1.10.0
+
+  wakelock_macos:
+    git:
+      url: https://github.com/netvue/flutter_external_packages
+      path: packages/wakelock/wakelock_macos
+      ref: wakelock_0.6.2
+  wakelock_platform_interface:
+    git:
+      url: https://github.com/netvue/flutter_external_packages
+      path: packages/wakelock/wakelock_platform_interface
+      ref: wakelock_0.6.2
+  wakelock_web:
+    git:
+      url: https://github.com/netvue/flutter_external_packages
+      path: packages/wakelock/wakelock_web
+      ref: wakelock_0.6.2
+  wakelock_windows:
+    git:
+      url: https://github.com/netvue/flutter_external_packages
+      path: packages/wakelock/wakelock_windows
+      ref: wakelock_0.6.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^3.0.1
+  pigeon: ^14.0.0 # flutter pub run pigeon --input "pigeons/messages.dart"
+
+flutter:
+  plugin:
+    platforms:
+      android:
+        package: creativemaybeno.wakelock
+        pluginClass: WakelockPlugin
+      ios:
+        pluginClass: WakelockPlugin
+      macos:
+        default_package: wakelock_macos
+      windows:
+        default_package: wakelock_windows
+      web:
+        default_package: wakelock_web

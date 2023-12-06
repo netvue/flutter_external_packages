@@ -64,3 +64,13 @@
       path: packages/link_rich_text
       ref: mobile_scanner_3.5.5
 ```
+
+## wakelock: 0.6.2
+
+```yaml
+  wakelock:
+    git:
+      url: https://github.com/netvue/flutter_external_packages
+      path: packages/wakelock
+      ref: wakelock_0.6.2
+```
