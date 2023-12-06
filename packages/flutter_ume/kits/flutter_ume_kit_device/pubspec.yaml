@@ -1,0 +1,31 @@
+name: flutter_ume_kit_device
+description: Device info kit for flutter_ume.
+version: 1.0.0
+homepage: https://github.com/bytedance/flutter_ume
+
+environment:
+  sdk: ^3.0.0
+  flutter: ^3.0.0
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_ume:
+    git:
+      url: https://github.com/netvue/flutter_external_packages
+      path: packages/flutter_ume
+      ref: flutter_ume_1.1.2
+  system_info: ^1.0.1
+  device_info_plus: ^9.1.1
+  platform: ^3.0.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  mockito: ^5.0.12
+  flutter_coverage_badge:
+    git:
+      url: https://github.com/smileShirely/flutter_coverage_badge.git
+      ref: 59b7580f406bb712e9d9049c8c99212946e34f65
+
+flutter:

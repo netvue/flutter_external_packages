@@ -1,0 +1,25 @@
+name: flutter_ume_kit_channel_monitor
+description: channel monitor kit for flutter_ume
+version: 0.0.1
+homepage: https://github.com/bytedance/flutter_ume
+
+environment:
+  sdk: ^3.0.0
+  flutter: ^3.0.0
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_ume:
+    git:
+      url: https://github.com/netvue/flutter_external_packages
+      path: packages/flutter_ume
+      ref: flutter_ume_1.1.2
+  rxdart: ^0.27.3
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.1
+
+flutter:
