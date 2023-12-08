@@ -119,33 +119,29 @@ class _HomeViewState extends State<HomeView> {
     );
   }
 
-  WebView _buildWebView() {
+  WebViewWidget _buildWebView() {
     final isEs5 = widget.title == 'es5';
     final jsVersion =
         isEs5 ? WebViewXInjectJsVersion.es5 : WebViewXInjectJsVersion.es7;
     final htmlVersion = isEs5 ? 'default' : 'async';
-    return WebView(
-      javascriptChannels: jsBridge.jsChannels,
-      // must enable js
-      javascriptMode: JavascriptMode.unrestricted,
-      onWebViewCreated: (controller) {
-        jsBridge.controller = controller;
-        jsBridge.defaultHandler = _defaultHandler;
-        jsBridge.registerHandler("NativeEcho", _nativeEchoHandler);
-      },
-      navigationDelegate: (NavigationRequest navigation) {
-        print('navigationDelegate ${navigation.url}');
-        // this is no effect on Android
-        if (navigation.url.contains('__bridge_loaded__')) {
-          jsBridge.injectJs(esVersion: jsVersion);
-          return NavigationDecision.prevent;
-        }
-        return NavigationDecision.navigate;
-      },
-      onPageFinished: (String url) {
-        jsBridge.injectJs(esVersion: jsVersion);
-      },
-      initialUrl: 'http://$address:$port/$htmlVersion.html',
+    return jsBridge.buildWebView(
+      esVersion: jsVersion,
+      defaultHandler: _defaultHandler,
+      nativeHandlerName: "NativeEcho",
+      nativeHandler: _nativeEchoHandler,
+      onLoad: (controller) => controller
+          .loadRequest(Uri.parse('http://$address:$port/$htmlVersion.html')),
+      navigationDelegate: NavigationDelegate(
+        onNavigationRequest: (request) {
+          print('navigationDelegate ${request.url}');
+          // this is no effect on Android
+          if (request.url.contains('__bridge_loaded__')) {
+            jsBridge.injectJs(esVersion: jsVersion);
+            return NavigationDecision.prevent;
+          }
+          return NavigationDecision.navigate;
+        },
+      ),
     );
   }
 

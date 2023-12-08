@@ -1,12 +1,12 @@
 buildscript {
-    ext.kotlin_version = '1.5.30'
+    ext.kotlin_version = '1.9.21'
     repositories {
         google()
         mavenCentral()
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.0.0'
+        classpath 'com.android.tools.build:gradle:8.2.0'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
@@ -16,6 +16,44 @@ allprojects {
         google()
         mavenCentral()
     }
+
+    afterEvaluate {
+        if (it.hasProperty('android')) {
+            def javaVersion = JavaVersion.VERSION_11
+            android {
+                def androidApiVersion = 33
+                compileSdk androidApiVersion
+
+                if(namespace == null){
+                    def manifest = new XmlSlurper().parse(file(sourceSets.main.manifest.srcFile))
+                    def packageName = manifest.@package.text()
+                    println("[${project.name}] set android.namespace to ${packageName}")
+                    namespace = packageName
+                }
+
+                defaultConfig {
+                    targetSdkVersion androidApiVersion
+                }
+
+                compileOptions {
+                    sourceCompatibility javaVersion
+                    targetCompatibility javaVersion
+                }
+
+                buildFeatures {
+                    buildConfig true
+                }
+
+                tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
+                    kotlinOptions {
+                        jvmTarget = javaVersion.toString()
+                    }
+                }
+            }
+        } else {
+            // println("[${project.name}] is not an android project")
+        }
+    }
 }
 
 rootProject.buildDir = '../build'
@@ -24,6 +62,6 @@ subprojects {
     project.evaluationDependsOn(':app')
 }
 
-task clean(type: Delete) {
+tasks.register("clean", Delete) {
     delete rootProject.buildDir
 }

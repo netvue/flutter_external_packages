@@ -2,6 +2,7 @@ library webview_jsbridge_x;
 
 import 'dart:async';
 import 'dart:convert';
+import 'dart:ffi';
 
 import 'package:flutter/services.dart';
 import 'package:webview_flutter/webview_flutter.dart';
@@ -11,27 +12,41 @@ typedef Future<T?> WebViewJSBridgeXHandler<T extends Object?>(Object? data);
 enum WebViewXInjectJsVersion { es5, es7 }
 
 class WebViewJSBridgeX {
-  WebViewController? controller;
-
+  final WebViewController controller = WebViewController();
+  late NavigationDelegate _navigationDelegate;
+  NavigationDelegate? _externalNavigationDelegate;
+  WebViewJSBridgeXHandler? _defaultHandler;
+  WebViewXInjectJsVersion _esVersion = WebViewXInjectJsVersion.es5;
   final _completers = <int, Completer>{};
-  var _completerIndex = 0;
   final _handlers = <String, WebViewJSBridgeXHandler>{};
-  WebViewJSBridgeXHandler? defaultHandler;
+  var _completerIndex = 0;
 
-  Set<JavascriptChannel> get jsChannels => <JavascriptChannel>{
-        JavascriptChannel(
-          name: 'YGFlutterJSBridgeChannel',
-          onMessageReceived: _onMessageReceived,
-        ),
-      };
+  WebViewJSBridgeX() {
+    _navigationDelegate = NavigationDelegate(
+      onNavigationRequest: _onNavigationRequest,
+      onPageStarted: _onPageStarted,
+      onPageFinished: _onPageFinished,
+      onProgress: _onNavigationProgress,
+      onWebResourceError: _onWebResourceError,
+      onUrlChange: _onUrlChange,
+    );
+    controller
+      ..addJavaScriptChannel(
+        "YGFlutterJSBridgeChannel",
+        onMessageReceived: _onMessageReceived,
+      )
+      ..setJavaScriptMode(JavaScriptMode.unrestricted)
+      ..setNavigationDelegate(_navigationDelegate);
+  }
 
-  Future<void> injectJs(
-      {WebViewXInjectJsVersion esVersion = WebViewXInjectJsVersion.es5}) async {
+  Future<void> injectJs({
+    WebViewXInjectJsVersion esVersion = WebViewXInjectJsVersion.es5,
+  }) async {
     final jsVersion =
         esVersion == WebViewXInjectJsVersion.es5 ? 'default' : 'async';
     final jsPath = 'packages/webview_jsbridge_x/assets/$jsVersion.js';
     final jsFile = await rootBundle.loadString(jsPath);
-    controller?.runJavascript(jsFile);
+    controller.runJavaScript(jsFile);
   }
 
   void registerHandler(String handlerName, WebViewJSBridgeXHandler handler) {
@@ -40,23 +55,6 @@ class WebViewJSBridgeX {
 
   void removeHandler(String handlerName) {
     _handlers.remove(handlerName);
-  }
-
-  void _onMessageReceived(JavascriptMessage message) {
-    final decodeStr = Uri.decodeFull(message.message);
-    final jsonData = jsonDecode(decodeStr);
-    final String type = jsonData['type'];
-    switch (type) {
-      case 'request':
-        _jsCall(jsonData);
-        break;
-      case 'response':
-      case 'error':
-        _nativeCallResponse(jsonData);
-        break;
-      default:
-        break;
-    }
   }
 
   Future<void> _jsCall(Map<String, dynamic> jsonData) async {
@@ -69,8 +67,8 @@ class WebViewJSBridgeX {
         _jsCallError(jsonData);
       }
     } else {
-      if (defaultHandler != null) {
-        final data = await defaultHandler?.call(jsonData['data']);
+      if (_defaultHandler != null) {
+        final data = await _defaultHandler?.call(jsonData['data']);
         _jsCallResponse(jsonData, data);
       } else {
         _jsCallError(jsonData);
@@ -134,6 +132,89 @@ class WebViewJSBridgeX {
     final jsonStr = jsonEncode(jsonData);
     final encodeStr = Uri.encodeFull(jsonStr);
     final script = 'WebViewJavascriptBridge.nativeCall("$encodeStr")';
-    controller?.runJavascript(script);
+    controller.runJavaScript(script);
+  }
+
+  /// [esVersion] 修改默认 esVersion. 在不设定 [navigationDelegate].onPageFinished 时, 使用默认 esVersion 注入. 若设定了 onPageFinished, esVersion 将被忽略.
+  /// [defaultHandler]
+  /// [nativeHandlerName] 与 [nativeHandler] 同时使用时生效.
+  /// [nativeHandler] 与 [nativeHandlerName] 同时使用时生效.
+  /// [onLoad] 回调 [WebViewController] 以供调用者加载网页.
+  /// [navigationDelegate] 导航委托.
+  WebViewWidget buildWebView({
+    WebViewXInjectJsVersion? esVersion,
+    Future<Object?> Function(Object? data)? defaultHandler,
+    String? nativeHandlerName,
+    Future<Object?> Function(Object? data)? nativeHandler,
+    required void Function(WebViewController controller) onLoad,
+    NavigationDelegate? navigationDelegate,
+  }) {
+    _esVersion = esVersion ?? _esVersion;
+    _externalNavigationDelegate = navigationDelegate;
+    _defaultHandler = defaultHandler;
+    if (nativeHandlerName == null && nativeHandler == null) {
+      // ignored
+    } else if (nativeHandlerName == null || nativeHandler == null) {
+      throw Exception(
+          "You should set nativeHandlerName && nativeHandler both!");
+    } else {
+      registerHandler(nativeHandlerName, nativeHandler);
+    }
+    onLoad(controller);
+    return WebViewWidget(controller: controller);
+  }
+
+  void _onMessageReceived(JavaScriptMessage message) {
+    final decodeStr = Uri.decodeFull(message.message);
+    final jsonData = jsonDecode(decodeStr);
+    final String type = jsonData['type'];
+    switch (type) {
+      case 'request':
+        _jsCall(jsonData);
+        break;
+      case 'response':
+      case 'error':
+        _nativeCallResponse(jsonData);
+        break;
+      default:
+        break;
+    }
+  }
+
+  FutureOr<NavigationDecision> _onNavigationRequest(NavigationRequest request) {
+    // 内部暂无特殊处理逻辑
+    final result =
+        _externalNavigationDelegate?.onNavigationRequest?.call(request);
+    if (result != null) {
+      return result;
+    }
+    return NavigationDecision.navigate;
+  }
+
+  _onPageStarted(String url) {
+    _externalNavigationDelegate?.onPageStarted?.call(url);
+  }
+
+  _onPageFinished(String url) {
+    final externalCall = _externalNavigationDelegate?.onPageFinished;
+    if (externalCall == null) {
+      // 默认注入 JS
+      injectJs(esVersion: _esVersion);
+    } else {
+      // 外部决定是否注入 JS
+      externalCall.call(url);
+    }
+  }
+
+  void _onNavigationProgress(int progress) {
+    _externalNavigationDelegate?.onProgress?.call(progress);
+  }
+
+  void _onWebResourceError(WebResourceError error) {
+    _externalNavigationDelegate?.onWebResourceError?.call(error);
+  }
+
+  void _onUrlChange(UrlChange change) {
+    // ignored
   }
 }

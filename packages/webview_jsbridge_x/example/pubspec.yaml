@@ -6,14 +6,16 @@ publish_to: "none" # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.12.0 <3.0.0"
+  sdk: ">=2.12.0 <4.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
-  cupertino_icons: ^1.0.4
+  cupertino_icons: ^1.0.6
   local_assets_server: ^2.0.2
-  webview_flutter: ^3.0.0
+  webview_flutter: ^4.4.2
+  webview_flutter_android: ^3.12.1 
+  webview_flutter_wkwebview: ^3.9.4
   webview_jsbridge_x:
     path: ../
 
