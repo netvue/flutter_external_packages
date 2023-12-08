@@ -1,0 +1,22 @@
+name: webview_jsbridge_x
+description: A flutter jsbridge package compatible with webview_flutter, no native dependence.
+version: 1.0.5
+homepage: https://github.com/KouYiGuo/webview_jsbridge_x
+
+environment:
+  sdk: ">=2.12.0 <3.0.0"
+  flutter: ">=2.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  webview_flutter: ^3.0.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  assets:
+    - assets/
