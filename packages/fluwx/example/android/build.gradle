@@ -1,0 +1,93 @@
+buildscript {
+    ext.kotlin_version = '1.7.10'
+    repositories {
+        google()
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:7.3.0'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+
+rootProject.buildDir = '../build'
+subprojects {
+    project.buildDir = "${rootProject.buildDir}/${project.name}"
+          afterEvaluate {
+        /*
+        tasks.withType(JavaCompile).configureEach {
+            sourceCompatibility = JavaVersion.VERSION_11.toString()
+            targetCompatibility = JavaVersion.VERSION_11.toString()
+        }
+        tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
+            compilerOptions.jvmTarget = org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_11
+        }
+        */
+
+
+        if (it.hasProperty('android')) {
+            println("[${project.name}] reconfigure android")
+            if (it.hasProperty('kotlin')) {
+                // https://developer.android.com/build?hl=en
+                kotlin {
+                  println("[${project.name}] hasProperty jvmToolchain ${hasProperty("jvmToolchain") ? "Yes" : "No"}")
+                  if (hasProperty("jvmToolchain")) {
+                      jvmToolchain 11
+                  }
+                }
+                println("[${project.name}] set kotlin.jvmToolchain to 11")
+            } else {
+                println("[${project.name}] kotlin property not set")
+            }
+
+            // android { namespace "xxx" }
+            // check if `android` block is available and namespace isn't set
+            if(it.android.namespace == null){
+                def manifest = new XmlSlurper().parse(file(it.android.sourceSets.main.manifest.srcFile))
+                def packageName = manifest.@package.text()
+                println("[${project.name}] set android.namespace to ${packageName}")
+                android.namespace = packageName
+            } else {
+                println("[${project.name}] android.namespace is ${it.android.namespace}")
+            }
+
+            def javaVersion = JavaVersion.VERSION_11
+            android {
+                def androidApiVersion = 33
+                compileSdkVersion androidApiVersion
+                defaultConfig {
+                    targetSdkVersion androidApiVersion
+                }
+                compileOptions {
+                    // coreLibraryDesugaringEnabled true
+                    sourceCompatibility javaVersion
+                    targetCompatibility javaVersion
+                }
+                tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
+                    kotlinOptions {
+                        jvmTarget = javaVersion.toString()
+                    }
+                }
+                println("[${project.name}] Setting java version to ${javaVersion.toString()}")
+            }
+        } else {
+            println("[${project.name}] android property not set")
+        }
+    }
+
+}
+subprojects {
+    project.evaluationDependsOn(':app')
+}
+
+tasks.register("clean", Delete) {
+    delete rootProject.buildDir
+}

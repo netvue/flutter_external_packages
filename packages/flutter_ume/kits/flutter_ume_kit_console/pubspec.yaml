@@ -17,7 +17,7 @@ dependencies:
     git:
       url: https://github.com/netvue/flutter_external_packages
       path: packages/flutter_ume
-      ref: flutter_3.16.3 # flutter_ume_1.1.2
+      ref: flutter_3.16.3_20231214 # flutter_ume_1.1.2
 
 dev_dependencies:
   flutter_test:
