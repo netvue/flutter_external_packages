@@ -2,7 +2,6 @@ library webview_jsbridge_x;
 
 import 'dart:async';
 import 'dart:convert';
-import 'dart:ffi';
 
 import 'package:flutter/services.dart';
 import 'package:webview_flutter/webview_flutter.dart';
@@ -143,6 +142,7 @@ class WebViewJSBridgeX {
   /// [navigationDelegate] 导航委托.
   WebViewWidget buildWebView({
     WebViewXInjectJsVersion? esVersion,
+    WebViewController? webViewController,
     Future<Object?> Function(Object? data)? defaultHandler,
     String? nativeHandlerName,
     Future<Object?> Function(Object? data)? nativeHandler,
@@ -160,8 +160,8 @@ class WebViewJSBridgeX {
     } else {
       registerHandler(nativeHandlerName, nativeHandler);
     }
-    onLoad(controller);
-    return WebViewWidget(controller: controller);
+    onLoad(webViewController ?? controller);
+    return WebViewWidget(controller: webViewController ?? controller);
   }
 
   void _onMessageReceived(JavaScriptMessage message) {
