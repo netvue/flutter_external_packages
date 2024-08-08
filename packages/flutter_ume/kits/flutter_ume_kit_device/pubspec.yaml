@@ -15,7 +15,7 @@ dependencies:
     git:
       url: https://github.com/netvue/flutter_external_packages
       path: packages/flutter_ume
-      ref: flutter_3.24.0_20240808 # flutter_ume_1.1.2
+      ref: flutter_3.24.0_20240808_rc02 # flutter_ume_1.1.2
   system_info: ^1.0.1
   device_info_plus: ^9.1.1
   platform: ^3.0.0

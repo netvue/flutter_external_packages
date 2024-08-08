@@ -19,7 +19,7 @@ dependencies:
     git:
       url: https://github.com/netvue/flutter_external_packages
       path: packages/wakelock/wakelock_platform_interface
-      ref: flutter_3.24.0_20240808 # wakelock_0.6.2
+      ref: flutter_3.24.0_20240808_rc02 # wakelock_0.6.2
 
 dev_dependencies:
   flutter_test:
