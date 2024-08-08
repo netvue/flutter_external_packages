@@ -58,7 +58,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
                 Text(
                   '$_counter',
-                  style: Theme.of(context).textTheme.headline4,
+                  style: Theme.of(context).textTheme.headlineSmall,
                 ),
               ],
             ),
@@ -72,7 +72,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       _hasTapped
                           ? 'Open \nCustomLog \nto view log'
                           : 'Tap here 👉',
-                      style: Theme.of(context).textTheme.headline4,
+                      style: Theme.of(context).textTheme.headlineSmall,
                     ),
                     SizedBox(width: 80)
                   ])),
