@@ -6,16 +6,16 @@ version '1.0-SNAPSHOT'
 Map projectYaml = loadPubspec()
 
 buildscript {
-    ext.kotlin_version = '1.7.10'
+    ext.kotlin_version = '1.8.22'
     repositories {
         google()
         mavenCentral()
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.3.1'
-        classpath "org.yaml:snakeyaml:2.0"
+        classpath "com.android.tools.build:gradle:8.3.2"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "org.yaml:snakeyaml:2.0"
     }
 }
 
@@ -29,8 +29,20 @@ allprojects {
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 android {
-    namespace "com.jarvan.fluwx"
-    compileSdk 31
+    if (project.android.hasProperty("namespace")) {
+        namespace 'com.jarvan.fluwx'
+    }
+
+    compileSdk 34
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    kotlinOptions {
+        jvmTarget = '17'
+    }
 
     sourceSets {
         main.java.srcDirs += ['src/main/kotlin', "${buildDir}/generated/src/kotlin"]
@@ -43,11 +55,11 @@ android {
     }
 
     dependencies {
-        api 'com.tencent.mm.opensdk:wechat-sdk-android:6.8.24'
-        implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4'
-        implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4'
+        api 'com.tencent.mm.opensdk:wechat-sdk-android:6.8.30'
+        implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.9.0'
+        implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.9.0'
         implementation 'id.zelory:compressor:3.0.1'
-        implementation 'com.squareup.okhttp3:okhttp:4.10.0'
+        implementation 'com.squareup.okhttp3:okhttp:4.12.0'
         testImplementation 'org.jetbrains.kotlin:kotlin-test'
         testImplementation 'org.mockito:mockito-core:5.0.0'
     }
@@ -66,7 +78,8 @@ android {
 }
 
 Map loadPubspec() {
-    def path = rootProject.projectDir.parent + File.separator + "pubspec.yaml"
+    def yamlDir = rootProject.hasProperty('yamlDir') ? rootProject.ext.yamlDir : ''
+    def path = rootProject.projectDir.parent + File.separator +yamlDir +"pubspec.yaml"
     InputStream input = new FileInputStream(new File(path))
     Yaml yaml = new Yaml()
     Map projectConfig = yaml.load(input)

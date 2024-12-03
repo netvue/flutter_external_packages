@@ -5,10 +5,10 @@ PODS:
     - fluwx/pay (= 0.0.1)
   - fluwx/pay (0.0.1):
     - Flutter
-    - WechatOpenSDK-XCFramework (~> 2.0.2)
+    - WechatOpenSDK-XCFramework (~> 2.0.4)
   - integration_test (0.0.1):
     - Flutter
-  - WechatOpenSDK-XCFramework (2.0.2)
+  - WechatOpenSDK-XCFramework (2.0.4)
 
 DEPENDENCIES:
   - Flutter (from `Flutter`)
@@ -28,11 +28,11 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/integration_test/ios"
 
 SPEC CHECKSUMS:
-  Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
-  fluwx: 3c7b6df42f83d444d4538f3eaeae079f12d30c37
+  Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
+  fluwx: c18fd6c16b03a2187cd07d6e48e32a7801962849
   integration_test: 13825b8a9334a850581300559b8839134b124670
-  WechatOpenSDK-XCFramework: acdeeda129efbef9532bca8a10c24e1b4b8c7d69
+  WechatOpenSDK-XCFramework: 36fb2bea0754266c17184adf4963d7e6ff98b69f
 
-PODFILE CHECKSUM: 02caaa843f6501172c0d470d80e72f61175c8b93
+PODFILE CHECKSUM: 6e700dec67e6deac9b1c69bb14c49a2217a12d15
 
-COCOAPODS: 1.12.1
+COCOAPODS: 1.15.2

@@ -1,6 +1,6 @@
 name: fluwx
 description: The capability of implementing WeChat SDKs in Flutter. With Fluwx, developers can use WeChatSDK easily, such as sharing, payment, lanuch mini program and etc.
-version: 4.4.8
+version: 5.3.1
 homepage: https://github.com/OpenFlutter/fluwx
 
 environment:
@@ -44,6 +44,8 @@ flutter:
       web:
         pluginClass: FluwxWeb
         fileName: src/fluwx_web.dart
+      ohos:
+        pluginClass: FluwxPlugin
 
   # To add assets to your plugin package, add an assets section, like this:
   # assets:

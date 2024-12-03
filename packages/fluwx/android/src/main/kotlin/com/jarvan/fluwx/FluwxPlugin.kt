@@ -6,7 +6,6 @@ import com.jarvan.fluwx.handlers.FluwxAuthHandler
 import com.jarvan.fluwx.handlers.FluwxRequestHandler
 import com.jarvan.fluwx.handlers.FluwxShareHandler
 import com.jarvan.fluwx.handlers.FluwxShareHandlerEmbedding
-import com.jarvan.fluwx.handlers.PermissionHandler
 import com.jarvan.fluwx.handlers.WXAPiHandler
 import com.jarvan.fluwx.utils.WXApiUtils
 import com.jarvan.fluwx.utils.readWeChatCallbackIntent
@@ -179,7 +178,6 @@ class FluwxPlugin : FlutterPlugin, MethodCallHandler, ActivityAware,
     }
 
     override fun onDetachedFromActivity() {
-        shareHandler?.permissionHandler = null
     }
 
     override fun onReattachedToActivityForConfigChanges(binding: ActivityPluginBinding) {
@@ -190,7 +188,6 @@ class FluwxPlugin : FlutterPlugin, MethodCallHandler, ActivityAware,
 //        WXAPiHandler.setContext(binding.activity.applicationContext)
         activityPluginBinding = binding
         binding.addOnNewIntentListener(this)
-        shareHandler?.permissionHandler = PermissionHandler(binding.activity)
     }
 
     override fun onDetachedFromActivityForConfigChanges() {

@@ -1,5 +1,8 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:fluwx/fluwx.dart';
+import 'package:fluwx_example/utils.dart';
 
 class ShareImagePage extends StatefulWidget {
   const ShareImagePage({Key? key}) : super(key: key);
@@ -11,15 +14,21 @@ class ShareImagePage extends StatefulWidget {
 class _ShareImagePageState extends State<ShareImagePage> {
   WeChatScene scene = WeChatScene.session;
   String _response = '';
+  String _imageToShare = 'https://timgsa.baidu.com/timg'
+      '?image'
+      '&quality=80'
+      '&size=b9999_10000'
+      '&sec=1534614311230'
+      '&di=b17a892b366b5d002f52abcce7c4eea0'
+      '&imgtype=0'
+      '&src=http%3A%2F%2Fimg.mp.sohu.com%2Fupload%2F20170516%2F51296b2673704ae2992d0a28c244274c_th.png';
 
-  WeChatImage? source;
-  WeChatImage? thumbnail;
   Fluwx fluwx = Fluwx();
 
   @override
   void initState() {
     super.initState();
-    fluwx.subscribeResponse((res) {
+    fluwx.addSubscriber((res) {
       if (res is WeChatShareResponse) {
         setState(() {
           _response = 'state :${res.isSuccessful}';
@@ -47,26 +56,17 @@ class _ShareImagePageState extends State<ShareImagePage> {
             TextField(
               decoration: const InputDecoration(labelText: '图片地址(仅限网络)'),
               controller: TextEditingController(
-                text: 'https://timgsa.baidu.com/timg'
-                    '?image'
-                    '&quality=80'
-                    '&size=b9999_10000'
-                    '&sec=1534614311230'
-                    '&di=b17a892b366b5d002f52abcce7c4eea0'
-                    '&imgtype=0'
-                    '&src=http%3A%2F%2Fimg.mp.sohu.com%2Fupload%2F20170516%2F51296b2673704ae2992d0a28c244274c_th.png',
+                text: _imageToShare,
               ),
               onChanged: (value) {
-                source = WeChatImage.network(value);
+                _imageToShare = value;
               },
               keyboardType: TextInputType.multiline,
             ),
             TextField(
               decoration: InputDecoration(labelText: '缩略地址'),
               controller: TextEditingController(text: '//images/logo.png'),
-              onChanged: (value) {
-                thumbnail = WeChatImage.asset(value);
-              },
+              onChanged: (value) {},
             ),
             Row(
               children: <Widget>[
@@ -116,8 +116,12 @@ class _ShareImagePageState extends State<ShareImagePage> {
     );
   }
 
-  void _shareImage() {
-    fluwx.share(WeChatShareImageModel(source!, thumbnail: thumbnail));
+  void _shareImage() async{
+    fluwx.share(WeChatShareImageModel(
+        WeChatImageToShare(
+          uint8List: await fetchImageAsUint8List(_imageToShare) ,
+        ),
+    ));
   }
 
   void handleRadioValueChanged(WeChatScene scene) {

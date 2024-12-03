@@ -1,3 +1,89 @@
+# 5.3.1
+* JVM target降低至11
+
+# 5.3.0
+* 升级kotlin、gradle相关
+* 更新progurad规则(#672)
+
+# 5.2.7
+* 鸿蒙sdk升级到1.0.3
+* 鸿蒙支持分享至小程序
+
+# 5.2.6
+* iOS脚本优化
+
+# 5.2.5
+* 测试自动发布脚本
+
+# 5.2.4
+* Fix #663
+
+# 5.2.3
+* Fix #661
+
+# 5.2.2
+* Fix #659，优化iOS脚本，使其更加友好
+
+# 5.2.1
+* Merge #658
+
+# 5.2.0
+* 为iOS分享小程序增加hdImageData选项
+* 优化Android图片分享逻辑，优先把LocalImagePath以最大限度保证图片质量
+
+# 5.1.0
+* 试验性支持harmonyOS，目前受限于native sdk，只支持部分功能
+
+# 5.0.3
+* 优化localImagePath处理，减轻非Android开发者的上手难度：localImagePath如果是以content://开头，则默认你已经挂载了相关路径的权限，
+否则请务必保证该路径是文件实际保存路径，即Android层可以直接读取到该文件，以方便fluwx将文件拷贝到指定可用目录。
+
+# 5.0.2
+* 删除subscribeResponse, unsubscribeResponse
+
+# 5.0.1
+* Fix #642
+
+# 5.0.0
+* 使用了多端统一API，详情请点击[这里](https://developers.weixin.qq.com/doc/oplatform/Mobile_App/Share_and_Favorites/Android.html)
+* 分享时所有的缩略图请使用`thumbData`字段
+* Fluwx不会再对任何图片进行压缩处理
+
+# 4.6.0
+* Android SDK => 6.8.30
+* 分享新增基础字段:thumbData
+* 分享新增基础字段:thumbDataHash
+
+# 4.5.6
+* Merge #639
+
+# 4.5.5
+* iOS 最小版本支持为12.0
+
+# 4.5.4
+* Merge #606
+
+# 4.5.3
+* Merge #605
+
+# 4.5.2
+* Android WechatSdk->6.8.28
+* iOS WeChatSdk->2.0.4
+
+# 4.5.1
+* Merge #602: 增加iOS privacy manifest
+
+# 4.5.0
+* Fix #599
+* 破坏性更新：从4.5.0起，当分享图片到微信时，如果不支持FileProvider方式分享，Fluwx不再尝试申请WRITE_EXTERNAL_STORAGE权限，这意味着你需要自己处理权限问题。
+
+# 4.4.10
+* Merge #596
+
+# 4.4.9
+* Merge #591
+* 
+
 # 4.4.8
 * Fix #543
 

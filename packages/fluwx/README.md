@@ -1,16 +1,23 @@
 # Fluwx
-![pub package](https://img.shields.io/pub/v/fluwx.svg)
+
+[![pub package](https://img.shields.io/pub/v/fluwx.svg)](https://pub.dartlang.org/packages/fluwx)
 ![Build status](https://github.com/OpenFlutter/fluwx/actions/workflows/build_test.yml/badge.svg)
-======
+[![GitHub stars](https://img.shields.io/github/stars/OpenFlutter/fluwx)](https://github.com/OpenFlutter/fluwx/stargazers)
+[![GitHub forks](https://img.shields.io/github/forks/OpenFlutter/fluwx)](https://github.com/OpenFlutter/fluwx/network)
+[![GitHub license](https://img.shields.io/github/license/OpenFlutter/fluwx)](https://github.com/OpenFlutter/fluwx/blob/master/LICENSE)
+[![GitHub issues](https://img.shields.io/github/issues/OpenFlutter/fluwx)](https://github.com/OpenFlutter/fluwx/issues)
+<a target="_blank" href="https://qm.qq.com/q/TJ29rkzywM"><img border="0" src="https://pub.idqqimg.com/wpa/images/group.png" alt="OpenFlutter" title="OpenFlutter"></a>
+
+---
 
 ![logo](https://gitee.com/OpenFlutter/resoures-repository/raw/master/fluwx/fluwx_logo.png)
 
 [中文请移步此处](./README_CN.md)
 
 ## What's Fluwx
+
 `Fluwx` is flutter plugin for [WeChatSDK](https://developers.weixin.qq.com/doc/oplatform/Mobile_App/Resource_Center_Homepage.html) which allows developers to call  
 [WeChatSDK](https://developers.weixin.qq.com/doc/oplatform/Mobile_App/Resource_Center_Homepage.html) native APIs.
-
 
 > Join QQ Group now: 1003811176
 
@@ -30,6 +37,8 @@
 
 [Migrate to V4 now](./doc/MIGRATE_TO_V4_CN.md)
 
+> Breaking changes ：*Fluwx* won't request permission(WRITE_EXTERNAL_STORAGE) since 4.5.0. That means you will need to handle permission when sharing images, if FileProvider is not supported.
+
 `Fluwx` is good but not God. You'd better read [official documents](https://developers.weixin.qq.com/doc/oplatform/Mobile_App/Resource_Center_Homepage.html) before
 integrating `Fluwx`. Then you'll understand how to generate Android signature, what's universal link for iOS, how to add URL schema for iOS and so on.
 
@@ -43,12 +52,12 @@ Add the following dependencies in your `pubspec.yaml` file:
 dependencies:
   fluwx: ^${latestVersion}
 ```
+
 ![pub package](https://img.shields.io/pub/v/fluwx.svg)
 
 `Fluwx` without pay:
 
 > Developers who need to exclude payment for iOS can enable `no_pay` in [pubspec.yaml](./example/pubspec.yaml#L86).
-
 
 > NOTE: Never forget to replace ^${latestVersion} with actual version.
 
@@ -66,8 +75,9 @@ for more details.
 - universal_link. Recommend for iOS. It'll be used to generate universal link on your projects.
 - scene_delegate. Optional. Use `AppDelegate` or `SceneDelegate`. See [official documents](https://developers.weixin.qq.com/doc/oplatform/Mobile_App/Access_Guide/iOS.html) for more details.
 
-* For iOS
+- For iOS
  If you are failing `cannot load such file -- plist` on iOS, please do the following steps:
+
 ```shell
 # step.1 install missing dependencies
 sudo gem install plist
@@ -76,6 +86,19 @@ cd example/ios/
 # step.3 execute
 pod install
 ```
+
+- On OpenHarmony, to check if WeChat is installed, add the following to the module.json5 in your project
+
+```json5
+{
+  "module": {
+    "querySchemes": [
+      "weixin"
+    ],
+  }
+}
+```
+
 ## Register WxAPI
 
 Register your app via `fluwx` if necessary.
@@ -84,6 +107,7 @@ Register your app via `fluwx` if necessary.
 Fluwx fluwx = Fluwx();
 fluwx.registerApi(appId: "wxd930ea5d5a228f5f",universalLink: "https://your.univerallink.com/link/");
 ```
+
 The param `universalLink` only works with iOS. You can read [this document](https://developers.weixin.qq.com/doc/oplatform/Mobile_App/Access_Guide/iOS.html) to learn
 how to create universalLink. You can also learn how to add URL schema, how to add `LSApplicationQueriesSchemes` in your iOS project. This is essential.
 
@@ -107,20 +131,20 @@ For more capabilities, you can read the public functions of `fluwx`.
 [These questions maybe help](./doc/QA_CN.md)
 
 ## Donate
+
 Buy the writer a cup of coffee。
 
 <img src="https://gitee.com/OpenFlutter/resoures-repository/raw/master/common/wx.jpeg" height="300">  <img src="https://gitee.com/OpenFlutter/resoures-repository/raw/master/common/ali.jpeg" height="300">
 
 ## Subscribe Us On WeChat
-![subscribe](https://gitee.com/OpenFlutter/resoures-repository/raw/master/fluwx/wx_subscription.png)
 
+![subscribe](https://gitee.com/OpenFlutter/resoures-repository/raw/master/fluwx/wx_subscription.png)
 
 ## Star history
 
 ![stars](https://starchart.cc/OpenFlutter/fluwx.svg)
 
 ## LICENSE
-
 
     Copyright 2023 OpenFlutter Project
 
@@ -138,8 +162,3 @@ Buy the writer a cup of coffee。
     WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
     License for the specific language governing permissions and limitations under
     the License.
-
-
-
-
-
