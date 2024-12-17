@@ -5,8 +5,8 @@ homepage: https://github.com/bytedance/flutter_ume
 publish_to: none
 
 environment:
-  sdk: ^3.0.0
-  flutter: ^3.0.0
+  sdk: ^3.6.0
+  flutter: ^3.27.1
 
 dependencies:
   flutter:
@@ -15,12 +15,10 @@ dependencies:
     git:
       url: https://github.com/netvue/flutter_external_packages
       path: packages/flutter_ume
-      ref: flutter_3.24.0_20241203 # flutter_ume_1.1.2
-  rxdart: ^0.27.3
+      ref: flutter_3.27.1_20241217 # flutter_ume_1.1.2
+  rxdart: ^0.28.0
 
 dev_dependencies:
-  flutter_test:
-    sdk: flutter
+  # flutter_test:
+  #   sdk: flutter
   flutter_lints: ^3.0.1
-
-flutter:

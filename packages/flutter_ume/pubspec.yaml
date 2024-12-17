@@ -5,7 +5,7 @@ homepage: https://github.com/bytedance/flutter_ume
 
 environment:
   sdk: ">=3.0.0 <4.0.0"
-  flutter: ">=3.0.0"
+  flutter: ">=3.27.1"
 
 dependencies:
   flutter:
@@ -14,13 +14,13 @@ dependencies:
     sdk: flutter
 
   shared_preferences: ^2.0.15
-  vm_service: ^14.2.4
+  vm_service: ^15.0.0
   tuple: ^2.0.0
 
 dev_dependencies:
   flutter_lints: ^3.0.1
-  flutter_test:
-    sdk: flutter
+  # flutter_test:
+  #   sdk: flutter
   melos: ^3.1.0
   mockito: ^5.3.2
   flutter_coverage_badge:

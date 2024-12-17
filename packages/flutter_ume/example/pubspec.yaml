@@ -21,7 +21,7 @@ dependencies:
   flutter_ume_kit_dio: 1.0.0
 
 dependency_overrides:
-  vm_service: ^13.0.0
+  vm_service: ^15.0.0
   flutter_ume:
     path: ../
 
