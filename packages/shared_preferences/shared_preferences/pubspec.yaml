@@ -40,32 +40,32 @@ dependencies:
     git:
       url: https://github.com/netvue/flutter_external_packages
       path: packages/shared_preferences/shared_preferences_platform_interface
-      ref: flutter_3.19.6_20240726_rc01
+      ref: flutter_3.19.6_20240726
   shared_preferences_android:
     git:
       url: https://github.com/netvue/flutter_external_packages
       path: packages/shared_preferences/shared_preferences_android
-      ref: flutter_3.19.6_20240726_rc01
+      ref: flutter_3.19.6_20240726
   shared_preferences_foundation:
     git:
       url: https://github.com/netvue/flutter_external_packages
       path: packages/shared_preferences/shared_preferences_foundation
-      ref: flutter_3.19.6_20240726_rc01
+      ref: flutter_3.19.6_20240726
   shared_preferences_linux:
     git:
       url: https://github.com/netvue/flutter_external_packages
       path: packages/shared_preferences/shared_preferences_linux
-      ref: flutter_3.19.6_20240726_rc01
+      ref: flutter_3.19.6_20240726
   shared_preferences_web:
     git:
       url: https://github.com/netvue/flutter_external_packages
       path: packages/shared_preferences/shared_preferences_web
-      ref: flutter_3.19.6_20240726_rc01
+      ref: flutter_3.19.6_20240726
   shared_preferences_windows:
     git:
       url: https://github.com/netvue/flutter_external_packages
       path: packages/shared_preferences/shared_preferences_windows
-      ref: flutter_3.19.6_20240726_rc01
+      ref: flutter_3.19.6_20240726
 
 dev_dependencies:
   flutter_test:

@@ -3,8 +3,10 @@ description: Demonstrates how to use the shared_preferences plugin.
 publish_to: none
 
 environment:
-  sdk: ^3.6.0
-  flutter: ">=3.27.0"
+  # sdk: ^3.6.0
+  # flutter: ">=3.27.0"
+  sdk: ^3.3.4
+  flutter: ">=3.19.6"
 
 dependencies:
   flutter:
@@ -16,11 +18,41 @@ dependencies:
     # The example app is bundled with the plugin so we use a path dependency on
     # the parent directory to use the current plugin's version.
     path: ../
-  shared_preferences_android: ^2.4.0
-  shared_preferences_foundation: ^2.5.3
-  shared_preferences_linux: ^2.4.1
-  shared_preferences_platform_interface: ^2.4.0
-  shared_preferences_windows: ^2.4.1
+  # shared_preferences_android: ^2.4.0
+  # shared_preferences_foundation: ^2.5.3
+  # shared_preferences_linux: ^2.4.1
+  # shared_preferences_platform_interface: ^2.4.0
+  # shared_preferences_windows: ^2.4.1
+  shared_preferences_platform_interface:
+    git:
+      url: https://github.com/netvue/flutter_external_packages
+      path: packages/shared_preferences/shared_preferences_platform_interface
+      ref: flutter_3.19.6_20240726
+  shared_preferences_android:
+    git:
+      url: https://github.com/netvue/flutter_external_packages
+      path: packages/shared_preferences/shared_preferences_android
+      ref: flutter_3.19.6_20240726
+  shared_preferences_foundation:
+    git:
+      url: https://github.com/netvue/flutter_external_packages
+      path: packages/shared_preferences/shared_preferences_foundation
+      ref: flutter_3.19.6_20240726
+  shared_preferences_linux:
+    git:
+      url: https://github.com/netvue/flutter_external_packages
+      path: packages/shared_preferences/shared_preferences_linux
+      ref: flutter_3.19.6_20240726
+  shared_preferences_web:
+    git:
+      url: https://github.com/netvue/flutter_external_packages
+      path: packages/shared_preferences/shared_preferences_web
+      ref: flutter_3.19.6_20240726
+  shared_preferences_windows:
+    git:
+      url: https://github.com/netvue/flutter_external_packages
+      path: packages/shared_preferences/shared_preferences_windows
+      ref: flutter_3.19.6_20240726
 
 dev_dependencies:
   build_runner: ^2.1.10

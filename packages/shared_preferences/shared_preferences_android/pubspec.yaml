@@ -27,12 +27,13 @@ dependencies:
     git:
       url: https://github.com/netvue/flutter_external_packages
       path: packages/shared_preferences/shared_preferences_platform_interface
-      ref: flutter_3.19.6_20240726_rc01
+      ref: flutter_3.19.6_20240726
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  pigeon: ^24.2.0
+  # pigeon: ^24.2.0
+  pigeon: ^22.7.0
 
 topics:
   - persistence

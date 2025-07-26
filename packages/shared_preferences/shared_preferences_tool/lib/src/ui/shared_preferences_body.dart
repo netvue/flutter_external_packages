@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 
 import 'data_panel.dart';
 import 'keys_panel.dart';
+import 'split_pane.dart';
 
 /// The main body of the shared preferences tool.
 /// It contains the [KeysPanel] and the [DataPanel].

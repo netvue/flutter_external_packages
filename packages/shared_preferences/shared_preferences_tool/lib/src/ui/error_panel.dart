@@ -23,11 +23,13 @@ class ErrorPanel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Padding(
       padding: const EdgeInsets.all(densePadding),
       child: Text(
         'Error:\n$error\n\n$stackTrace',
-        style: Theme.of(context).errorTextStyle,
+        // style: Theme.of(context).errorTextStyle,
+        style: theme.textTheme.bodyMedium?.copyWith(color: theme.colorScheme.error)
       ),
     );
   }
