@@ -34,7 +34,7 @@ apply plugin: 'kotlin-android'
 
 android {
     namespace 'io.flutter.plugins.sharedpreferences'
-    compileSdk = flutter.compileSdkVersion
+    compileSdk = 35 // flutter.compileSdkVersion
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_11

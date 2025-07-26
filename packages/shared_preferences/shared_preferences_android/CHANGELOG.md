@@ -8,7 +8,7 @@
 
 ## 2.4.8
 
-* Updates compileSdk 34 to flutter.compileSdkVersion.
+* Updates compileSdk 34 to 35 // flutter.compileSdkVersion.
 
 ## 2.4.7
 

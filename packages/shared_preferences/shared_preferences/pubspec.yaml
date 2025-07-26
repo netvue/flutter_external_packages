@@ -3,7 +3,7 @@ description: Flutter plugin for reading and writing simple key-value pairs.
   Wraps NSUserDefaults on iOS and SharedPreferences on Android.
 repository: https://github.com/flutter/packages/tree/main/packages/shared_preferences/shared_preferences
 issue_tracker: https://github.com/flutter/flutter/issues?q=is%3Aissue+is%3Aopen+label%3A%22p%3A+shared_preferences%22
-version: 2.5.3
+version: 2.5.3+20240726
 
 environment:
   # sdk: ^3.6.0
@@ -40,32 +40,32 @@ dependencies:
     git:
       url: https://github.com/netvue/flutter_external_packages
       path: packages/shared_preferences/shared_preferences_platform_interface
-      ref: flutter_3.19.6_20240726
+      ref: flutter_3.19.6_20240726_rc02
   shared_preferences_android:
     git:
       url: https://github.com/netvue/flutter_external_packages
       path: packages/shared_preferences/shared_preferences_android
-      ref: flutter_3.19.6_20240726
+      ref: flutter_3.19.6_20240726_rc02
   shared_preferences_foundation:
     git:
       url: https://github.com/netvue/flutter_external_packages
       path: packages/shared_preferences/shared_preferences_foundation
-      ref: flutter_3.19.6_20240726
+      ref: flutter_3.19.6_20240726_rc02
   shared_preferences_linux:
     git:
       url: https://github.com/netvue/flutter_external_packages
       path: packages/shared_preferences/shared_preferences_linux
-      ref: flutter_3.19.6_20240726
+      ref: flutter_3.19.6_20240726_rc02
   shared_preferences_web:
     git:
       url: https://github.com/netvue/flutter_external_packages
       path: packages/shared_preferences/shared_preferences_web
-      ref: flutter_3.19.6_20240726
+      ref: flutter_3.19.6_20240726_rc02
   shared_preferences_windows:
     git:
       url: https://github.com/netvue/flutter_external_packages
       path: packages/shared_preferences/shared_preferences_windows
-      ref: flutter_3.19.6_20240726
+      ref: flutter_3.19.6_20240726_rc02
 
 dev_dependencies:
   flutter_test:
