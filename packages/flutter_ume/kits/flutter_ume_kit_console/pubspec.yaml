@@ -5,8 +5,8 @@ homepage: https://github.com/bytedance/flutter_ume
 publish_to: none
 
 environment:
-  sdk: ^3.6.0
-  flutter: ^3.27.1
+  sdk: ^3.3.4
+  flutter: ^3.19.6
 
 dependencies:
   flutter:
@@ -21,8 +21,8 @@ dependencies:
       ref: flutter_3.19.6_20250807_rc01 # flutter_ume_1.1.2
 
 dev_dependencies:
-  # flutter_test:
-  #   sdk: flutter
+  flutter_test:
+    sdk: flutter
   mockito: ^5.0.12
   flutter_coverage_badge:
     git:
