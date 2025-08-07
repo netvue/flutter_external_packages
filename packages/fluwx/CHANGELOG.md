@@ -1,3 +1,43 @@
+# 5.7.1
+* iOS SDK升级至2.0.5
+* Android SDK升级至6.8.34
+
+# 5.7.0
+* 修复debug_logging在Android端不生效的问题
+* Fix #716
+
+# 5.6.0
+* Android和iOS支持Emoj分享
+* 文档完善
+
+# 5.5.5
+* 鸿蒙SDK升级到1.0.14
+* 鸿蒙端支持分享视频
+
+# 5.5.4
+* 分享到小程序时，增加scene字段，尽管微信只支持分享小程序到会话.
+
+# 5.5.3
+* Fix [#706](https://github.com/OpenFlutter/fluwx/issues/706)
+
+# 5.5.2
+* Fix [#703](https://github.com/OpenFlutter/fluwx/issues/703)
+
+# 5.5.1
+* 鸿蒙端bug修复，详见[PR](https://github.com/OpenFlutter/fluwx/pull/700)
+
+# 5.5.0
+* 更新鸿蒙sdk，支持openBusinessView,onWXLaunchFromWX
+
+# 5.4.2
+* 更新一下API文档
+
+# 5.4.1
+* Android替换过时方法toLowerCase()为lowercase()
+
+# 5.4.0
+* 增加鸿蒙分享网页和小程序，微信sdk升级1.0.6
+
 # 5.3.1
 * JVM target降低至11
 

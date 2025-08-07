@@ -30,6 +30,7 @@ const String _msgSignature = "msgSignature";
 const String _thumbData = "thumbData";
 const String _thumbDataHash = "thumbDataHash";
 
+/// Base class for all share models
 sealed class WeChatShareModel with _Argument {
   final String? title;
   final String? description;
@@ -87,6 +88,7 @@ class WeChatShareTextModel extends WeChatShareModel {
 
 /// [hdImageData] only works on iOS, not sure the relationship
 /// the default value is [MINI_PROGRAM_TYPE_RELEASE]
+/// [scene] on supports [WeChatScene.session] for mini program sharing.
 class WeChatShareMiniProgramModel extends WeChatShareModel {
   WeChatShareMiniProgramModel({
     required this.webPageUrl,
@@ -100,6 +102,7 @@ class WeChatShareMiniProgramModel extends WeChatShareModel {
     this.messageAction,
     this.messageExt,
     this.hdImageData,
+    this.scene = WeChatScene.session,
     super.msgSignature,
     super.thumbData,
     super.thumbDataHash,
@@ -110,6 +113,7 @@ class WeChatShareMiniProgramModel extends WeChatShareModel {
   final Uint8List? hdImageData;
   final String webPageUrl;
   final WXMiniProgramType miniProgramType;
+  final WeChatScene scene;
   final String userName;
   final String path;
   final bool withShareTicket;
@@ -132,6 +136,7 @@ class WeChatShareMiniProgramModel extends WeChatShareModel {
         _thumbData: thumbData,
         _thumbDataHash: thumbDataHash,
         "hdImageData": hdImageData,
+        _scene: scene.index,
       };
 }
 
@@ -328,6 +333,32 @@ class WeChatShareFileModel extends WeChatShareModel {
         _description: description,
         _messageAction: messageAction,
         _mediaTagName: mediaTagName,
+        _msgSignature: msgSignature,
+        _thumbData: thumbData,
+        _thumbDataHash: thumbDataHash,
+      };
+}
+
+class WeChatShareEmojiModel extends WeChatShareModel {
+  final WeChatImageToShare emoji;
+  final WeChatScene scene;
+
+  WeChatShareEmojiModel(
+    this.emoji, {
+    this.scene = WeChatScene.session,
+    super.title,
+    super.description,
+    super.msgSignature,
+    super.thumbData,
+    super.thumbDataHash,
+  });
+
+  @override
+  Map<String, dynamic> get arguments => {
+        _scene: scene.index,
+        _source: emoji.arguments,
+        _title: title,
+        _description: description,
         _msgSignature: msgSignature,
         _thumbData: thumbData,
         _thumbDataHash: thumbDataHash,

@@ -4,10 +4,9 @@
 #import <fluwx/ThumbnailHelper.h>
 #import <fluwx/FluwxStringUtil.h>
 #import <fluwx/NSStringWrapper.h>
-#import <WXApi.h>
-#import <WXApiObject.h>
-#import <WechatAuthSDK.h>
-#import <WXApi.h>
+#import <WechatOpenSDK/WXApi.h>
+#import <WechatOpenSDK/WXApiObject.h>
+#import <WechatOpenSDK/WechatAuthSDK.h>
 
 NSString *const fluwxKeyTitle = @"title";
 NSString *const fluwxKeyImage = @ "image";
@@ -261,7 +260,7 @@ NSObject <FlutterPluginRegistrar> *_fluwxRegistrar;
     if (![WXApi isWXAppInstalled]) {
         result([FlutterError errorWithCode:@"WeChat Not Installed" message:@"Please install the WeChat first" details:nil]);
     } else {
-        result(@(true));
+        result(@(YES));
     }
 }
 
@@ -509,6 +508,8 @@ NSObject <FlutterPluginRegistrar> *_fluwxRegistrar;
         [self shareMiniProgram:call result:result];
     } else if ([@"shareFile" isEqualToString:call.method]) {
         [self shareFile:call result:result];
+    } else if ([@"shareEmoji" isEqualToString:call.method]) {
+        [self shareEmoji:call result:result];
     }
 }
 
@@ -734,6 +735,37 @@ NSObject <FlutterPluginRegistrar> *_fluwxRegistrar;
                               ThumbDataHash:call.arguments[fluwxKeyThumbDataHash]
                                  completion:^(BOOL done) {
                 result(@(done));
+            }];
+        });
+    });
+}
+
+- (void)shareEmoji:(FlutterMethodCall *)call result:(FlutterResult)result {
+
+    NSNumber *sceneNum = call.arguments[fluwxKeyScene];
+    enum WXScene scene = [self intToWeChatScene:sceneNum];
+
+    NSDictionary *sourceEmoji = call.arguments[keySource];
+    FlutterStandardTypedData *flutterEmojiData = sourceEmoji[@"uint8List"];
+    NSData *emojiData = flutterEmojiData != nil ? flutterEmojiData.data : nil;
+
+    FlutterStandardTypedData *flutterThumbData = call.arguments[fluwxKeyThumbData];
+    NSData *thumbData = ![flutterThumbData isKindOfClass:[NSNull class]] ? flutterThumbData.data : nil;
+
+    NSString *msgSignature = call.arguments[fluwxKeyMsgSignature];
+    NSString *thumbHash    = call.arguments[fluwxKeyThumbDataHash];
+
+    dispatch_queue_t globalQueue = dispatch_get_global_queue(0, 0);
+    dispatch_async(globalQueue, ^{
+        dispatch_async(dispatch_get_main_queue(), ^{
+
+            [self sendEmotionData:emojiData
+                          InScene:scene
+                     MsgSignature:msgSignature
+                        ThumbData:thumbData
+                    ThumbDataHash:thumbHash
+                       completion:^(BOOL success) {
+                result(@(success));
             }];
         });
     });

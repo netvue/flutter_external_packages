@@ -1,5 +1,6 @@
 part of 'arguments.dart';
 
+/// The target you want to open.
 sealed class OpenType with _Argument {}
 
 /// Just open WeChat app.
@@ -30,6 +31,7 @@ class BusinessView extends OpenType {
       {"businessType": businessType, "query": query};
 }
 
+/// Inovice
 class Invoice extends OpenType {
   final String appId;
   final String cardType;
@@ -54,6 +56,7 @@ class Invoice extends OpenType {
       };
 }
 
+/// Customer service chat, known as "微信客服" in WeChat
 class CustomerServiceChat extends OpenType {
   final String corpId;
   final String url;
