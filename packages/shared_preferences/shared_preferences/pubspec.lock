@@ -180,7 +180,7 @@ packages:
     dependency: "direct main"
     description:
       path: "packages/shared_preferences/shared_preferences_android"
-      ref: "flutter_3.19.6_20250807_rc01"
+      ref: "flutter_3.19.6_20250807_rc02"
       resolved-ref: "18774774b49915c62f76389d3eaf5e8c82a19b18"
       url: "https://github.com/netvue/flutter_external_packages"
     source: git
@@ -189,7 +189,7 @@ packages:
     dependency: "direct main"
     description:
       path: "packages/shared_preferences/shared_preferences_foundation"
-      ref: "flutter_3.19.6_20250807_rc01"
+      ref: "flutter_3.19.6_20250807_rc02"
       resolved-ref: "18774774b49915c62f76389d3eaf5e8c82a19b18"
       url: "https://github.com/netvue/flutter_external_packages"
     source: git
@@ -198,7 +198,7 @@ packages:
     dependency: "direct main"
     description:
       path: "packages/shared_preferences/shared_preferences_linux"
-      ref: "flutter_3.19.6_20250807_rc01"
+      ref: "flutter_3.19.6_20250807_rc02"
       resolved-ref: "18774774b49915c62f76389d3eaf5e8c82a19b18"
       url: "https://github.com/netvue/flutter_external_packages"
     source: git
@@ -207,7 +207,7 @@ packages:
     dependency: "direct main"
     description:
       path: "packages/shared_preferences/shared_preferences_platform_interface"
-      ref: "flutter_3.19.6_20250807_rc01"
+      ref: "flutter_3.19.6_20250807_rc02"
       resolved-ref: "18774774b49915c62f76389d3eaf5e8c82a19b18"
       url: "https://github.com/netvue/flutter_external_packages"
     source: git
@@ -216,7 +216,7 @@ packages:
     dependency: "direct main"
     description:
       path: "packages/shared_preferences/shared_preferences_web"
-      ref: "flutter_3.19.6_20250807_rc01"
+      ref: "flutter_3.19.6_20250807_rc02"
       resolved-ref: "18774774b49915c62f76389d3eaf5e8c82a19b18"
       url: "https://github.com/netvue/flutter_external_packages"
     source: git
@@ -225,7 +225,7 @@ packages:
     dependency: "direct main"
     description:
       path: "packages/shared_preferences/shared_preferences_windows"
-      ref: "flutter_3.19.6_20250807_rc01"
+      ref: "flutter_3.19.6_20250807_rc02"
       resolved-ref: "18774774b49915c62f76389d3eaf5e8c82a19b18"
       url: "https://github.com/netvue/flutter_external_packages"
     source: git
